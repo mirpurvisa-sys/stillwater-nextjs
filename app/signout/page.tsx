@@ -1,0 +1,3 @@
+'use client';
+import {useState} from 'react';
+export default function SignOut(){const [error,setError]=useState(''),[busy,setBusy]=useState(false);return <main className="section narrow auth-page"><h1>Sign out?</h1><p>Your saved records will remain available when you sign in again.</p><button className="button" disabled={busy} onClick={async()=>{setBusy(true);try{const r=await fetch('/api/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'logout'})});if(!r.ok)throw Error();window.location.assign('/')}catch{setError('Unable to sign out. Please retry.');setBusy(false)}}}>{busy?'Signing out…':'Sign out'}</button> <a className="outline" href="/">Stay signed in</a>{error&&<p role="alert">{error}</p>}</main>}
